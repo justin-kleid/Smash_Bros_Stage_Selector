@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Super Smash Stages</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Stage Recommendation</h1>
+    <p>Based on the selected characters, the optimal stage is:</p>
+    <h2 id="recommended-stage"></h2>
+    <script>
+        // retrieve character and opponent names from local storage in the opponent selection page
+        var character = localStorage.getItem("character");
+        var opponent = localStorage.getItem("opponent");
+
+        var data = {
+            'character': character,
+            'opponent': opponent
+        };
+        fetch('http://127.0.0.1:5000/api/recommend-stage', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            var recommendedStageElement = document.getElementById("recommended-stage");
+            recommendedStageElement.innerText = data.stage;
+        })
+        .catch(error => console.error(error));
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Super Smash Stages</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+        }
+        .row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-gap: 20px;
+        }
+        .card {
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            overflow: hidden;
+            text-align: center;
+            cursor: pointer; /* add cursor pointer to indicate clickable */
+        }
+        .card img {
+            max-width: 50%;
+            height: auto;
+        }
+        .card h3 {
+            margin: 10px;
+        }
+        .card p {
+            margin: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select Your Smash Ultimate Character</h1>
+    <div class="container">
+        <div class="row" id="character-cards"></div>
+    </div>
+    <script src="characters.js"></script>
+    <script>
+        // generate the HTML code for the character cards
+        var characterCards = "";
+        for (var i = 0; i < characters.length; i++) {
+            characterCards += `
+                <div class="card" onclick="selectCharacter('${characters[i].name}')">
+                    <img src="${characters[i].image}" alt="${characters[i].name}">
+                    <h3>${characters[i].name}</h3>
+                    <p>${characters[i].description}</p>
+                </div>
+            `;
+        }
+
+        // add the character cards to the HTML page
+        var characterCardsElement = document.getElementById("character-cards");
+        characterCardsElement.innerHTML = characterCards;
+
+        // define the selectCharacter function
+        function selectCharacter(characterName) {
+            // store the selected character in local storage
+            localStorage.setItem("character", characterName);
+            // redirect to the opponent selection page
+            window.location.href = "opponent_select.html";
+        }
+    </script>
+</body>
+</html>
