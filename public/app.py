@@ -1,9 +1,10 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory, render_template
 from flask_cors import CORS
 import torch
 from torch import nn
 import pickle
 import os
+
 
 # do better***
 class StageRecommender(nn.Module):
@@ -28,23 +29,34 @@ class StageRecommender(nn.Module):
 num_characters = 80
 num_stages = 17
 model = StageRecommender(num_characters, num_stages)
-model_path = os.path.join('..', 'stage_recommender.pth')
+model_path = os.path.join('..', 'models', 'stage_recommender.pth')
 model.load_state_dict(torch.load(model_path))
 model.eval()  # Set the model to evaluation mode
 
 # Load char_encoder from the pickle file
-char_path = os.path.join('..', 'char_encoder.pkl')
+char_path = os.path.join('..', 'models', 'char_encoder.pkl')
 with open(char_path, 'rb') as infile:
     char_encoder = pickle.load(infile)
 
-stage_path = os.path.join('..', 'stage_encoder.pkl')
+stage_path = os.path.join('..', 'models', 'stage_encoder.pkl')
 with open(stage_path, 'rb') as infile:
     stage_encoder = pickle.load(infile)
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 CORS(app)
-
 @app.route('/api/recommend-stage', methods=['POST'])
+
+@app.route('/')
+def index():
+    return render_template('character_select.html')
+
+@app.route('/opponent')
+def opponent():
+    return render_template('opponent_select.html')
+
+@app.route('/result')
+def result():
+    return render_template('stage_result.html')
 
 
 def recommend_stage():
