@@ -16,8 +16,9 @@
     <h1>Stage Recommendation</h1>
     <p>Based on the selected characters, the optimal stage is:</p>
     <h2 id="recommended-stage"></h2>
+    <img id="recommended-stage-image" src="" alt="Recommended Stage Image" style="width: 300px; height: auto;">
     <script>
-        // retrieve character and opponent names from local storage in the opponent selection page
+        // Retrieve character and opponent names from local storage
         var character = localStorage.getItem("character");
         var opponent = localStorage.getItem("opponent");
 
@@ -25,6 +26,7 @@
             'character': character,
             'opponent': opponent
         };
+
         fetch('http://127.0.0.1:5000/api/recommend-stage', {
             method: 'POST',
             headers: {
@@ -34,8 +36,16 @@
         })
         .then(response => response.json())
         .then(data => {
+            var stageName = data.stage;
             var recommendedStageElement = document.getElementById("recommended-stage");
-            recommendedStageElement.innerText = data.stage;
+            recommendedStageElement.innerText = stageName;
+
+            // Convert the stage name to a valid file name. Replace special characters.
+            var stageFileName = stageName.replace('é', 'e') + ".png";
+
+            // Update the image src to point to the corresponding image
+            var recommendedStageImageElement = document.getElementById("recommended-stage-image");
+            recommendedStageImageElement.src = `/static/img/stages/${stageFileName}`;
         })
         .catch(error => console.error(error));
     </script>

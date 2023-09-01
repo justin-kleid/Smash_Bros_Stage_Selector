@@ -45,20 +45,6 @@ with open(stage_path, 'rb') as infile:
 app = Flask(__name__, static_folder='static')
 CORS(app)
 @app.route('/api/recommend-stage', methods=['POST'])
-
-@app.route('/')
-def index():
-    return render_template('character_select.html')
-
-@app.route('/opponent')
-def opponent():
-    return render_template('opponent_select.html')
-
-@app.route('/result')
-def result():
-    return render_template('stage_result.html')
-
-
 def recommend_stage():
     data = request.get_json()
 
@@ -76,8 +62,23 @@ def recommend_stage():
     predicted_stage_idx = torch.argmax(outputs, dim=1).item()
 
     recommended_stage = stage_encoder.inverse_transform([predicted_stage_idx])[0]
+    print(stage_encoder.classes_)
 
     return jsonify({'stage': recommended_stage})
+
+@app.route('/')
+def index():
+    return render_template('character_select.html')
+
+@app.route('/opponent')
+def opponent():
+    return render_template('opponent_select.html')
+
+@app.route('/result')
+def result():
+    return render_template('stage_result.html')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
