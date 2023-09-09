@@ -26,7 +26,14 @@ The Flask API serves the web application and handles the recommendation logic. T
 - `data/`: Directory for storing the dataset and trained model files.
 
 ## Setup for Local Development
-todo
+```
+$ git clone https://github.com/justin-kleid/Smash_Bros_Stage_Selector.git
+$ conda env create -f environment.yml
+$ conda activate smash
+$ cd public
+$ python app.py
+```
+
 
 ## Usage
 To use the web application:
