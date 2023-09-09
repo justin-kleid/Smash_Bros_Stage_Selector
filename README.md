@@ -31,6 +31,7 @@ The Flask API serves the web application and handles the recommendation logic. T
 ## Setup for Local Development (MacOS)
 ```
 $ git clone https://github.com/justin-kleid/Smash_Bros_Stage_Selector.git
+$ cd Smash_Bros_Stage_Selector
 $ conda env create -f environment.yml
 $ conda activate smash
 $ cd public
