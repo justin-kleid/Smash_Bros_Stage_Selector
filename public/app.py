@@ -26,8 +26,8 @@ class StageRecommender(nn.Module):
         return x
 
 # Load the model
-num_characters = 80
-num_stages = 17
+num_characters = 86
+num_stages = 11
 model = StageRecommender(num_characters, num_stages)
 model_path = os.path.join('..', 'models', 'stage_recommender.pth')
 model.load_state_dict(torch.load(model_path))
@@ -81,4 +81,4 @@ def result():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
