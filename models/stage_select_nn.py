@@ -101,4 +101,3 @@ with open('stage_encoder.pkl', 'wb') as outfile:
     pickle.dump(stage_encoder, outfile)
 
 
-#model_path = 'stage_recommender.pth'
