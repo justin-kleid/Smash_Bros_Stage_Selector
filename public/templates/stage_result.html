@@ -40,12 +40,20 @@
             var recommendedStageElement = document.getElementById("recommended-stage");
             recommendedStageElement.innerText = stageName;
 
-            // Convert the stage name to a valid file name. Replace special characters.
-            var stageFileName = stageName.replace('é', 'e') + ".png";
-
-            // Update the image src to point to the corresponding image
             var recommendedStageImageElement = document.getElementById("recommended-stage-image");
-            recommendedStageImageElement.src = `/static/img/stages/${stageFileName}`;
+            
+            var notRecognizedStages = ["Not enough data", "Character not recognized", "Opponent character not recognized"];
+            
+            if (!notRecognizedStages.includes(stageName)) {
+                // Convert the stage name to a valid file name. Replace special characters.
+                var stageFileName = stageName.replace('é', 'e') + ".png";
+
+                // Update the image src to point to the corresponding image
+                recommendedStageImageElement.src = `/static/img/stages/${stageFileName}`;
+                recommendedStageImageElement.style.display = 'block';  // Make the image visible
+            } else {
+                recommendedStageImageElement.style.display = 'none';  // Hide the image
+            }
         })
         .catch(error => console.error(error));
     </script>

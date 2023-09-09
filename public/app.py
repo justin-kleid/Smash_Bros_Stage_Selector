@@ -47,24 +47,30 @@ CORS(app)
 @app.route('/api/recommend-stage', methods=['POST'])
 def recommend_stage():
     data = request.get_json()
-
-    #input_data = prepare_input_data(character, opponent)
     character = data['character']
     opponent = data['opponent']
 
+    try:
+        winner_encoded = char_encoder.transform([character])[0]
+    except ValueError:
+        return jsonify({'stage': 'Character not recognized'})
 
-
-    winner_encoded = char_encoder.transform([character])[0]
-    loser_encoded = char_encoder.transform([opponent])[0]
+    try:
+        loser_encoded = char_encoder.transform([opponent])[0]
+    except ValueError:
+        return jsonify({'stage': 'Opponent character not recognized'})
 
     inputs = torch.tensor([[winner_encoded, loser_encoded]])
     outputs = model(inputs)
     predicted_stage_idx = torch.argmax(outputs, dim=1).item()
 
-    recommended_stage = stage_encoder.inverse_transform([predicted_stage_idx])[0]
-    print(stage_encoder.classes_)
+    if 0 <= predicted_stage_idx < num_stages:
+        recommended_stage = stage_encoder.inverse_transform([predicted_stage_idx])[0]
+    else:
+        recommended_stage = "Not enough data"
 
     return jsonify({'stage': recommended_stage})
+
 
 @app.route('/')
 def index():
