@@ -9,6 +9,9 @@ The SSBU (Super Smash Bros. Ultimate) Stage Selector is a web application design
 ### Data Preprocessing and Encoding
 The data used for training is derived from competitive Smash Ultimate tournament data. The preprocessing involves encoding character and stage names into integers to facilitate neural network training.
 
+The raw tournament data can be found here:
+https://ultimategamedata.com/about
+
 ### Neural Network Architecture
 The neural network comprises an embedding layer followed by two linear layers. The embedding layer helps in capturing the relationships between different characters and stages.
 
@@ -25,8 +28,16 @@ The Flask API serves the web application and handles the recommendation logic. T
 - `public/templates/`: Contains HTML templates for different pages of the web application.
 - `data/`: Directory for storing the dataset and trained model files.
 
-## Setup for Local Development
-todo
+## Setup for Local Development (MacOS)
+```
+$ git clone https://github.com/justin-kleid/Smash_Bros_Stage_Selector.git
+$ cd Smash_Bros_Stage_Selector
+$ conda env create -f environment.yml
+$ conda activate smash
+$ cd public
+$ python app.py
+```
+To change the model, the dataset can be downloaded and cleaned using the utilities/clean_csv.py file. Next, the file models/stage_select_nn.py will read the csv file stored in /data/cleaned_smash_tourney_data.csv to generate the model.
 
 ## Usage
 To use the web application:
