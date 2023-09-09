@@ -37,7 +37,7 @@ $ conda activate smash
 $ cd public
 $ python app.py
 ```
-
+To change the model, the dataset can be downloaded and clean using the utilities/clean_csv.py file. Next, models/stage_select_nn.py will read the csv file stored in /data/cleaned_smash_tourney_data.csv.
 
 ## Usage
 To use the web application:
