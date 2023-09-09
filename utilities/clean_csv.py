@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Load the data
-data = pd.read_csv('smash_tourney_data.csv')
+data = pd.read_csv('raw_smash_tourney_data.csv')
 
 # Remove all rows with missing stage names
 data = data[data['Stage Name'].notna()]
