@@ -29,7 +29,7 @@
             border-radius: 5px;
             overflow: hidden;
             text-align: center;
-            cursor: pointer; /* add cursor pointer to indicate clickable */
+            cursor: pointer;
         }
         .card img {
             max-width: 50%;
@@ -72,7 +72,6 @@
         function selectCharacter(characterName) {
             // store the selected character in local storage
             localStorage.setItem("character", characterName);
-            // redirect to the opponent selection page
             window.location.href = "/opponent";
         }
     </script>

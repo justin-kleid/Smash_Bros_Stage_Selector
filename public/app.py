@@ -6,7 +6,6 @@ import pickle
 import os
 
 
-# do better***
 class StageRecommender(nn.Module):
     def __init__(self, num_characters, num_stages, embedding_dim=16):
         super(StageRecommender, self).__init__()
